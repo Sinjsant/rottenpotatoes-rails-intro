@@ -7,15 +7,17 @@ class MoviesController < ApplicationController
   end
 
   def index
-#     puts "referer: #{request.referer}"
-#     if "#{URI(request.referer).path.to_s}" == "/movies"
+#     if "#{URI(request.referer).path.to_s}" = "/movies"
 #       session[:movie_params] = params
 #     else
 #        params[:ratings] = session[:movie_params]['ratings']
 #        params[:sort] = session[:movie_params]['sort']
 #     end
-    
+#     puts "referer: #{URI(request.referer).path}"
 
+    
+   
+    # to save/load params from cookies
     if params[:sort]
       session[:sort] = params[:sort]
     end
@@ -25,6 +27,8 @@ class MoviesController < ApplicationController
     if !(params[:sort] or params[:ratings]) and (session[:sort] or session[:ratings])
         params[:sort] = session[:sort]
         params[:ratings] = session[:ratings]
+        # to preserve restful url
+        redirect_to movies_path(sort: params[:sort], ratings: params[:ratings])
     end
     
 
