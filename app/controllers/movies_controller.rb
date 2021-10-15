@@ -12,7 +12,14 @@ class MoviesController < ApplicationController
     # to persist the checked boxes to the next screen
     @ratings_to_show = params[:ratings] ? params[:ratings].keys : []
     # to display the correct movies according to the checkboxes
-    @movies = Movie.with_ratings(@ratings_to_show)
+    @movies = Movie.with_ratings(@ratings_to_show).order(params[:sort])
+    #@movies = Movie.order(params[:sort])
+    @sort = params[:sort]
+    if params[:sort] == "title" 
+      @title_header_style = "hilite bg-warning"
+    elsif params[:sort] == "release_date"
+      @release_header_style = "hilite bg-warning"
+    end
   end
 
   def new
@@ -47,6 +54,6 @@ class MoviesController < ApplicationController
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :sort)
   end
 end
