@@ -7,27 +7,28 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if "#{URI(request.referer).path}" == "/movies"
-      session[:movie_params] = params
-    else
-       params[:ratings] = session[:movie_params]['ratings']
-       params[:sort] = session[:movie_params]['sort']
-    end
+#     puts "referer: #{request.referer}"
+#     if "#{URI(request.referer).path.to_s}" == "/movies"
+#       session[:movie_params] = params
+#     else
+#        params[:ratings] = session[:movie_params]['ratings']
+#        params[:sort] = session[:movie_params]['sort']
+#     end
     
 
-#     if params[:sort]
-#       session[:sort] = params[:sort]
-#     end
-#     if params[:ratings]
-#       session[:ratings] = params[:ratings]
-#       session[:params] = params
-#       puts "class: #{session[:params][:ratings]}"
-#     end
-#     if !(params[:sort] or params[:ratings])
-#         params[:sort] = session[:sort]
-#         puts "sessionparams: #{session[:params]['ratings']}"
-#         params[:ratings] = session[:params]['ratings']
-#     end
+    if params[:sort]
+      session[:sort] = params[:sort]
+    end
+    if params[:ratings]
+      session[:ratings] = params[:ratings]
+      session[:params] = params
+      puts "class: #{session[:params][:ratings]}"
+    end
+    if !(params[:sort] or params[:ratings])
+        params[:sort] = session[:sort]
+        puts "sessionparams: #{session[:params]['ratings']}"
+        params[:ratings] = session[:params]['ratings']
+    end
     
 
     # to build the row of checkboxes
