@@ -21,13 +21,10 @@ class MoviesController < ApplicationController
     end
     if params[:ratings]
       session[:ratings] = params[:ratings]
-      session[:params] = params
-      puts "class: #{session[:params][:ratings]}"
     end
-    if !(params[:sort] or params[:ratings])
+    if !(params[:sort] or params[:ratings]) and (session[:sort] or session[:ratings])
         params[:sort] = session[:sort]
-        puts "sessionparams: #{session[:params]['ratings']}"
-        params[:ratings] = session[:params]['ratings']
+        params[:ratings] = session[:ratings]
     end
     
 
