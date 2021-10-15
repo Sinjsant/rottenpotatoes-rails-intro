@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
     # to build the row of checkboxes
     @all_ratings = Movie.all_ratings
     # to persist the checked boxes to the next screen
-    @ratings_to_show = params[:ratings] ? params[:ratings].keys : []
+    @ratings_to_show = params[:ratings] ? params[:ratings].keys : @all_ratings
     # to display the correct movies according to the checkboxes
     @movies = Movie.with_ratings(@ratings_to_show).order(params[:sort])
     #@movies = Movie.order(params[:sort])
